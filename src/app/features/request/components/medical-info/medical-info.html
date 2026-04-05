@@ -1,0 +1,102 @@
+<section class="p-6 max-w-3xl mx-auto">
+
+  <h2 class="text-2xl font-bold mb-6">
+    Medical Information
+  </h2>
+
+  <form [formGroup]="form" class="space-y-5">
+
+    <!-- Condition -->
+    <div>
+      <label class="block text-sm font-medium mb-1">Condition *</label>
+      <input 
+        type="text"
+        formControlName="condition"
+        class="w-full border rounded-lg px-3 py-2"
+        [ngClass]="{'border-red-500': f['condition'].touched && f['condition'].invalid}"
+      />
+
+      <p *ngIf="f['condition'].touched && f['condition'].invalid"
+         class="text-red-500 text-sm mt-1">
+        Condition is required
+      </p>
+    </div>
+
+    <!-- Hospital -->
+    <div>
+      <label class="block text-sm font-medium mb-1">Hospital *</label>
+      <input 
+        type="text"
+        formControlName="hospital"
+        class="w-full border rounded-lg px-3 py-2"
+        [ngClass]="{'border-red-500': f['hospital'].touched && f['hospital'].invalid}"
+      />
+
+      <p *ngIf="f['hospital'].touched && f['hospital'].invalid"
+         class="text-red-500 text-sm mt-1">
+        Hospital is required
+      </p>
+    </div>
+
+    <!-- Doctor -->
+    <div>
+      <label class="block text-sm font-medium mb-1">Doctor</label>
+      <input 
+        type="text"
+        formControlName="doctor"
+        class="w-full border rounded-lg px-3 py-2"
+      />
+    </div>
+
+    <!-- Estimated Cost -->
+    <div>
+      <label class="block text-sm font-medium mb-1">Estimated Cost *</label>
+      <input 
+        type="number"
+        formControlName="estimatedCost"
+        class="w-full border rounded-lg px-3 py-2"
+        [ngClass]="{'border-red-500': f['estimatedCost'].touched && f['estimatedCost'].invalid}"
+      />
+
+      <p *ngIf="f['estimatedCost'].touched && f['estimatedCost'].invalid"
+         class="text-red-500 text-sm mt-1">
+
+        <span *ngIf="f['estimatedCost'].errors?.['required']">
+          Estimated cost is required
+        </span>
+
+        <span *ngIf="f['estimatedCost'].errors?.['min']">
+          Minimum cost should be 1000
+        </span>
+
+      </p>
+    </div>
+
+    <!-- Description -->
+    <div>
+      <label class="block text-sm font-medium mb-1">Description *</label>
+      <textarea 
+        formControlName="description"
+        rows="4"
+        class="w-full border rounded-lg px-3 py-2"
+        [ngClass]="{'border-red-500': f['description'].touched && f['description'].invalid}"
+      ></textarea>
+
+      <p *ngIf="f['description'].touched && f['description'].invalid"
+         class="text-red-500 text-sm mt-1">
+        Description is required
+      </p>
+    </div>
+
+    <!-- Submit -->
+    <button 
+      type="button"
+      (click)="submit()"
+      class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primaryDark"
+    >
+      Save & Continue
+    </button>
+
+  </form>
+
+</section>

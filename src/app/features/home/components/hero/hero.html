@@ -1,0 +1,59 @@
+<section class="relative h-screen flex items-center justify-center text-white">
+
+  <!-- Background -->
+  <div class="absolute inset-0">
+    <img 
+      src="https://images.unsplash.com/photo-1584515933487-779824d29309"
+      class="w-full h-full object-cover"
+      alt="Healthcare"
+    />
+    <div class="absolute inset-0 bg-black/60"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="relative z-10 text-center max-w-3xl px-6">
+
+    <p class="uppercase tracking-widest text-sm mb-4 text-gray-200">
+      Kindness & Support International
+    </p>
+
+    <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-6">
+      Every Life Deserves <br />
+      <span class="text-primary">a Fighting Chance</span>
+    </h1>
+
+    <p class="text-lg text-gray-200 mb-8">
+      We connect compassionate donors with patients in urgent need —
+      transparently, swiftly, and with dignity.
+    </p>
+
+    <!-- Buttons -->
+    <div class="flex justify-center gap-4 mb-12">
+      <a 
+        routerLink="/request"
+        class="bg-primary hover:bg-primaryDark px-6 py-3 rounded-lg font-semibold inline-block text-center"
+        >
+        Request Support →
+        </a>
+
+      <a 
+        routerLink="/cases"
+        class="border border-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-black inline-block text-center"
+        >
+        View Active Cases
+        </a>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-3 gap-6 text-center">
+
+      <div *ngFor="let stat of stats">
+        <h3 class="text-2xl font-bold">{{ stat.value }}</h3>
+        <p class="text-sm text-gray-300">{{ stat.label }}</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>

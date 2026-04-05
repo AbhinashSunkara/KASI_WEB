@@ -1,0 +1,53 @@
+<div class="bg-white rounded-xl shadow-xs border border-gray-200 hover:shadow-md transition overflow-hidden">
+
+  <!-- Image -->
+  <div class="h-40 bg-gray-200">
+    <img 
+      src="https://images.unsplash.com/photo-1579154204601-01588f351e67"
+      class="w-full h-full object-cover"
+    />
+  </div>
+
+  <!-- Content -->
+  <div class="p-6">
+
+    <h3 class="text-lg font-semibold">
+      {{ case.name }}
+    </h3>
+
+    <p class="text-sm text-gray-500 mb-2">
+      {{ case.condition }}
+    </p>
+
+    <p class="text-sm text-gray-400 mb-4">
+      {{ case.hospital }}
+    </p>
+
+    <!-- Progress -->
+    <div class="mb-2">
+      <div class="w-full bg-gray-200 h-2 rounded-full">
+        <div 
+          class="bg-primary h-2 rounded-full"
+          [style.width.%]="getProgress()"
+        ></div>
+      </div>
+    </div>
+
+    <!-- Amount -->
+    <div class="flex justify-between text-sm mb-4">
+      <span class="font-semibold text-primary">
+        ₹{{ case.raised | number }}
+      </span>
+      <span class="text-gray-500">
+        of ₹{{ case.goal | number }}
+      </span>
+    </div>
+
+    <!-- CTA -->
+    <button class="w-full bg-primary hover:bg-primaryDark text-white py-2 rounded-lg">
+      Donate Now
+    </button>
+
+  </div>
+
+</div>

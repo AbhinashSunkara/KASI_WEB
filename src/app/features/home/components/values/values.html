@@ -1,0 +1,43 @@
+<section class="py-20 bg-gray-50">
+
+  <div class="max-w-6xl mx-auto px-6 text-center">
+
+    <!-- Heading -->
+    <h2 class="text-3xl md:text-4xl font-bold mb-4">
+      Built on Values that Matter
+    </h2>
+
+    <p class="text-gray-600 mb-12">
+      We ensure every contribution creates real impact through our core principles.
+    </p>
+
+    <!-- Cards -->
+    <div class="grid md:grid-cols-3 gap-8">
+
+      <div 
+        *ngFor="let item of items"
+        class="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition"
+      >
+
+        <!-- Icon -->
+        <div class="text-4xl mb-4">
+          {{ item.icon }}
+        </div>
+
+        <!-- Title -->
+        <h3 class="text-xl font-semibold mb-2">
+          {{ item.title }}
+        </h3>
+
+        <!-- Description -->
+        <p class="text-gray-600">
+          {{ item.description }}
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>

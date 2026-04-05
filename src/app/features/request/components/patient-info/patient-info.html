@@ -1,0 +1,112 @@
+<section class="p-6 max-w-3xl mx-auto">
+
+  <h2 class="text-2xl font-bold mb-6">
+    Patient Information
+  </h2>
+
+  <form [formGroup]="form" class="space-y-5">
+
+    <!-- Name -->
+    <div>
+      <label class="block text-sm font-medium mb-1">Full Name *</label>
+      <input 
+        type="text"
+        formControlName="name"
+        class="w-full border rounded-lg px-3 py-2"
+        [ngClass]="{'border-red-500': f['name'].touched && f['name'].invalid}"
+      />
+
+      <p *ngIf="f['name'].touched && f['name'].invalid"
+         class="text-red-500 text-sm mt-1">
+        Name is required
+      </p>
+    </div>
+
+    <!-- Age -->
+    <div>
+      <label class="block text-sm font-medium mb-1">Age *</label>
+      <input 
+        type="number"
+        formControlName="age"
+        class="w-full border rounded-lg px-3 py-2"
+        [ngClass]="{'border-red-500': f['age'].touched && f['age'].invalid}"
+      />
+
+      <p *ngIf="f['age'].touched && f['age'].invalid"
+         class="text-red-500 text-sm mt-1">
+        Valid age is required
+      </p>
+    </div>
+
+    <!-- Gender -->
+    <div>
+      <label class="block text-sm font-medium mb-1">Gender *</label>
+      <select 
+        formControlName="gender"
+        class="w-full border rounded-lg px-3 py-2"
+        [ngClass]="{'border-red-500': f['gender'].touched && f['gender'].invalid}"
+      >
+        <option value="">Select</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+      </select>
+
+      <p *ngIf="f['gender'].touched && f['gender'].invalid"
+         class="text-red-500 text-sm mt-1">
+        Please select gender
+      </p>
+    </div>
+
+    <!-- Phone -->
+    <div>
+      <label class="block text-sm font-medium mb-1">Phone Number *</label>
+      <input 
+        type="text"
+        formControlName="phone"
+        class="w-full border rounded-lg px-3 py-2"
+        [ngClass]="{'border-red-500': f['phone'].touched && f['phone'].invalid}"
+      />
+
+      <p *ngIf="f['phone'].touched && f['phone'].invalid"
+         class="text-red-500 text-sm mt-1">
+
+        <span *ngIf="f['phone'].errors?.['required']">
+          Phone is required
+        </span>
+
+        <span *ngIf="f['phone'].errors?.['pattern']">
+          Enter valid 10-digit number
+        </span>
+
+      </p>
+    </div>
+
+    <!-- City -->
+    <div>
+      <label class="block text-sm font-medium mb-1">City *</label>
+      <input 
+        type="text"
+        formControlName="city"
+        class="w-full border rounded-lg px-3 py-2"
+        [ngClass]="{'border-red-500': f['city'].touched && f['city'].invalid}"
+      />
+
+      <p *ngIf="f['city'].touched && f['city'].invalid"
+         class="text-red-500 text-sm mt-1">
+        City is required
+      </p>
+    </div>
+
+    <!-- Submit -->
+    <button 
+      type="button"
+      (click)="submit()"
+      class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primaryDark"
+    >
+      Save & Continue
+    </button>
+
+  </form>
+
+</section>
