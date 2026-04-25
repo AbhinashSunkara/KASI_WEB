@@ -1,102 +1,141 @@
-<section class="p-6 max-w-3xl mx-auto">
+<section class="py-10 max-w-2xl mx-auto">
 
-  <h2 class="text-2xl font-bold mb-6">
-    Medical Information
-  </h2>
+  <div class="max-w-2xl mx-auto px-4">
 
-  <form [formGroup]="form" class="space-y-5">
+    <!-- Header -->
+    <div class="mb-6 text-center">
 
-    <!-- Condition -->
-    <div>
-      <label class="block text-sm font-medium mb-1">Condition *</label>
-      <input 
-        type="text"
-        formControlName="condition"
-        class="w-full border rounded-lg px-3 py-2"
-        [ngClass]="{'border-red-500': f['condition'].touched && f['condition'].invalid}"
-      />
+      <h2 class="text-2xl md:text-3xl font-semibold text-gray-900 mb-1">
+        Medical Information
+      </h2>
 
-      <p *ngIf="f['condition'].touched && f['condition'].invalid"
-         class="text-red-500 text-sm mt-1">
-        Condition is required
+      <p class="text-sm text-gray-500">
+        Provide treatment and cost details
       </p>
+
     </div>
 
-    <!-- Hospital -->
-    <div>
-      <label class="block text-sm font-medium mb-1">Hospital *</label>
-      <input 
-        type="text"
-        formControlName="hospital"
-        class="w-full border rounded-lg px-3 py-2"
-        [ngClass]="{'border-red-500': f['hospital'].touched && f['hospital'].invalid}"
-      />
+    <!-- Card -->
+    <div class="bg-white rounded-xl shadow-sm p-5 md:p-6">
 
-      <p *ngIf="f['hospital'].touched && f['hospital'].invalid"
-         class="text-red-500 text-sm mt-1">
-        Hospital is required
-      </p>
+      <form [formGroup]="form" class="space-y-4">
+
+        <!-- Condition -->
+        <div>
+          <label class="block text-sm font-medium mb-1">Condition *</label>
+          <input 
+            type="text"
+            formControlName="condition"
+            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition"
+            [ngClass]="{'border-red-500': f['condition'].touched && f['condition'].invalid}"
+          />
+
+          <p *ngIf="f['condition'].touched && f['condition'].invalid"
+             class="text-red-500 text-xs mt-1">
+            Condition is required
+          </p>
+        </div>
+
+        <!-- Hospital -->
+        <div>
+          <label class="block text-sm font-medium mb-1">Hospital *</label>
+          <input 
+            type="text"
+            formControlName="hospital"
+            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition"
+            [ngClass]="{'border-red-500': f['hospital'].touched && f['hospital'].invalid}"
+          />
+
+          <p *ngIf="f['hospital'].touched && f['hospital'].invalid"
+             class="text-red-500 text-xs mt-1">
+            Hospital is required
+          </p>
+        </div>
+
+        <!-- Doctor -->
+        <div>
+          <label class="block text-sm font-medium mb-1">Doctor</label>
+          <input 
+            type="text"
+            formControlName="doctor"
+            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition"
+          />
+        </div>
+
+        <!-- Estimated Cost -->
+        <div>
+          <label class="block text-sm font-medium mb-1">Estimated Cost *</label>
+          <input 
+            type="number"
+            formControlName="estimatedCost"
+            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition"
+            [ngClass]="{'border-red-500': f['estimatedCost'].touched && f['estimatedCost'].invalid}"
+          />
+
+          <p *ngIf="f['estimatedCost'].touched && f['estimatedCost'].invalid"
+             class="text-red-500 text-xs mt-1">
+
+            <span *ngIf="f['estimatedCost'].errors?.['required']">
+              Estimated cost is required
+            </span>
+
+            <span *ngIf="f['estimatedCost'].errors?.['min']">
+              Minimum cost should be 1000
+            </span>
+
+          </p>
+        </div>
+
+        <!-- Description -->
+        <div>
+  <label class="block text-sm font-medium mb-1">
+    Medical Summary & Story *
+  </label>
+
+  <!-- Helper -->
+  <p class="text-xs text-gray-500 mb-2">
+    Explain the condition, treatment required, and why financial support is needed.
+    A clear story helps donors understand and contribute.
+  </p>
+
+  <textarea 
+    formControlName="description"
+    rows="4"
+    placeholder="Example: The patient is suffering from a serious condition and requires immediate surgery. The estimated cost is high, and the family is unable to afford treatment..."
+    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition"
+    [ngClass]="{'border-red-500': f['description'].touched && f['description'].invalid}"
+  ></textarea>
+
+  <!-- Validation -->
+  <p *ngIf="f['description'].touched && f['description'].invalid"
+     class="text-red-500 text-xs mt-1">
+
+    <span *ngIf="f['description'].errors?.['required']">
+      Description is required
+    </span>
+
+    <span *ngIf="f['description'].errors?.['minlength']">
+      Please provide at least 50 characters
+    </span>
+
+  </p>
+</div>
+
+        <!-- Submit -->
+        <div class="pt-2">
+          <button 
+            type="button"
+            (click)="submit()"
+            class="w-full bg-primary hover:bg-primaryDark text-white py-2.5 rounded-lg text-sm font-semibold transition-all duration-300"
+          >
+            Continue →
+          </button>
+        </div>
+
+      </form>
+
     </div>
 
-    <!-- Doctor -->
-    <div>
-      <label class="block text-sm font-medium mb-1">Doctor</label>
-      <input 
-        type="text"
-        formControlName="doctor"
-        class="w-full border rounded-lg px-3 py-2"
-      />
-    </div>
-
-    <!-- Estimated Cost -->
-    <div>
-      <label class="block text-sm font-medium mb-1">Estimated Cost *</label>
-      <input 
-        type="number"
-        formControlName="estimatedCost"
-        class="w-full border rounded-lg px-3 py-2"
-        [ngClass]="{'border-red-500': f['estimatedCost'].touched && f['estimatedCost'].invalid}"
-      />
-
-      <p *ngIf="f['estimatedCost'].touched && f['estimatedCost'].invalid"
-         class="text-red-500 text-sm mt-1">
-
-        <span *ngIf="f['estimatedCost'].errors?.['required']">
-          Estimated cost is required
-        </span>
-
-        <span *ngIf="f['estimatedCost'].errors?.['min']">
-          Minimum cost should be 1000
-        </span>
-
-      </p>
-    </div>
-
-    <!-- Description -->
-    <div>
-      <label class="block text-sm font-medium mb-1">Description *</label>
-      <textarea 
-        formControlName="description"
-        rows="4"
-        class="w-full border rounded-lg px-3 py-2"
-        [ngClass]="{'border-red-500': f['description'].touched && f['description'].invalid}"
-      ></textarea>
-
-      <p *ngIf="f['description'].touched && f['description'].invalid"
-         class="text-red-500 text-sm mt-1">
-        Description is required
-      </p>
-    </div>
-
-    <!-- Submit -->
-    <button 
-      type="button"
-      (click)="submit()"
-      class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primaryDark"
-    >
-      Save & Continue
-    </button>
-
-  </form>
+  </div>
 
 </section>

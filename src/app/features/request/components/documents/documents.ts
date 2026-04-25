@@ -9,15 +9,18 @@ import { DocumentApiService } from '../../../services/document-api.service';
 })
 export class Documents implements OnInit {
 
+  @Input() files: any[] = [];
   @Output() filesSelected = new EventEmitter<any[]>();
-
+  documents: any[] = [];
   uploadedFiles: any[] = [];
   loading = false;
 
   constructor(private documentApi: DocumentApiService) {}
 
-  ngOnInit() {}
 
+  ngOnInit() {
+    this.uploadedFiles = [...(this.files || [])];
+  }
   async onFileSelect(event: any) {
     const selectedFiles = event.target.files;
 
@@ -48,4 +51,8 @@ export class Documents implements OnInit {
 
     this.filesSelected.emit(this.uploadedFiles);
   }
+
+  emitFiles() {
+  this.filesSelected.emit(this.uploadedFiles);
+}
 }
