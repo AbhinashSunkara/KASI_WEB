@@ -1,0 +1,12 @@
+{
+  "/api/kasi": {
+    "target": "https://localhost:7048",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/api/kasi": "/api"
+    }
+  }
+}
+

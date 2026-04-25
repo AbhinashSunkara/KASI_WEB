@@ -1,30 +1,40 @@
 <header class="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-50">
 
-  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between">
 
     <!-- Logo -->
-    <div class="text-2xl font-bold text-primary">
-     <a routerLink="/" class="hover:text-primary">KASI</a>
+    <div class="text-xl md:text-2xl font-bold text-primary whitespace-nowrap">
+      <a routerLink="/" class="hover:text-primary">KASI</a>
     </div>
 
     <!-- Navigation -->
-    <nav class="hidden md:flex items-center gap-8 text-gray-700 font-medium">
-      <a routerLinkActive="text-green-700" [routerLinkActiveOptions]="{ exact: true }" class="font-semibold" routerLink="/" class="hover:text-primary">Home</a>
-      <a routerLinkActive="text-green-700 font-semibold" routerLink="/cases" class="hover:text-primary">Cases</a>
-      <a routerLinkActive="text-green-700 font-semibold" routerLink="/request" class="hover:text-primary">Request Support</a>
+    <nav class="flex items-center gap-3 md:gap-8 text-xs md:text-base text-gray-700 font-medium overflow-x-auto">
+
+      <a routerLink="/" 
+         routerLinkActive="text-green-700 font-semibold"
+         [routerLinkActiveOptions]="{ exact: true }"
+         class="hover:text-primary whitespace-nowrap">
+        Home
+      </a>
+
+      <a routerLink="/cases" 
+         routerLinkActive="text-green-700 font-semibold"
+         class="hover:text-primary whitespace-nowrap">
+        Cases
+      </a>
+
+      <a routerLink="/request" 
+         routerLinkActive="text-green-700 font-semibold"
+         class="hover:text-primary whitespace-nowrap">
+        Request
+      </a>
+
     </nav>
 
     <!-- CTA -->
-    <div class="hidden md:block">
-      <button class="bg-primary hover:bg-primaryDark text-white px-5 py-2 rounded-lg">
+    <div>
+      <button class="bg-primary hover:bg-primaryDark text-white px-3 md:px-5 py-1.5 md:py-2 text-xs md:text-sm rounded-lg whitespace-nowrap">
         Donate
-      </button>
-    </div>
-
-    <!-- Mobile Menu Icon -->
-    <div class="md:hidden">
-      <button>
-        ☰
       </button>
     </div>
 

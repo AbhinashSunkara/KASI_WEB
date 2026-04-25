@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CampaignApiService } from '../../../services/campaign-api.service';
 
 @Component({
   selector: 'app-stepper',
@@ -11,15 +12,18 @@ export class Stepper {
   patientData: any;
   medicalData: any;
   documents: any[] = [];
-  showDocumentError = false;
-  currentStep = 0;
 
-  steps = [
-    'Patient Info',
-    'Medical Info',
-    'Documents',
-    'Review'
-  ];
+  currentStep = 0;
+  showDocumentError = false;
+  loading = false;
+
+  steps = ['Patient Info', 'Medical Info', 'Documents', 'Review'];
+
+  constructor(private campaignApi: CampaignApiService) {}
+
+  goToStep(index: number) {
+    this.currentStep = index;
+  }
 
   next() {
     if (this.currentStep < this.steps.length - 1) {
@@ -33,19 +37,9 @@ export class Stepper {
     }
   }
 
-  goToStep(index: number) {
-    this.currentStep = index;
-  }
-
   handleNext(data: any) {
-
-    if (this.currentStep === 0) {
-      this.patientData = data;
-    }
-
-    if (this.currentStep === 1) {
-      this.medicalData = data;
-    }
+    if (this.currentStep === 0) this.patientData = data;
+    if (this.currentStep === 1) this.medicalData = data;
 
     this.next();
   }
@@ -55,39 +49,42 @@ export class Stepper {
     this.next();
   }
 
-  submitAll() {
+  async submitAll() {
 
-  if (!this.documents || this.documents.length === 0) {
-    this.showDocumentError = true;
-    return;
+    if (!this.documents || this.documents.length === 0) {
+      this.showDocumentError = true;
+      return;
+    }
+
+    this.loading = true;
+
+    const payload = {
+      title: this.medicalData.condition,
+      story: this.medicalData.description,
+      goalAmount: this.medicalData.estimatedCost,
+
+      patient: this.patientData,
+      medical: this.medicalData,
+      documents: this.documents
+    };
+
+    try {
+      const res = await this.campaignApi.create(payload);
+      console.log('Campaign Created:', res);
+
+      alert('Campaign submitted successfully');
+    } catch (err) {
+      console.error(err);
+      alert('Failed to create campaign');
+    }
+
+    this.loading = false;
   }
 
-  this.showDocumentError = false;
-
-  const payload = {
-    patient: this.patientData,
-    medical: this.medicalData,
-    documents: this.documents
-  };
-
-  console.log('FINAL SUBMISSION:', payload);
-}
-
-canProceed(): boolean {
-
-  if (this.currentStep === 0) {
-    return !!this.patientData; // must be saved
+  canProceed(): boolean {
+    if (this.currentStep === 0) return !!this.patientData;
+    if (this.currentStep === 1) return !!this.medicalData;
+    if (this.currentStep === 2) return this.documents.length > 0;
+    return true;
   }
-
-  if (this.currentStep === 1) {
-    return !!this.medicalData;
-  }
-
-  if (this.currentStep === 2) {
-    return this.documents && this.documents.length > 0;
-  }
-
-  return true;
-}
-
 }
