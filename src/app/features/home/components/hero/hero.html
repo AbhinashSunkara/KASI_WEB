@@ -1,55 +1,85 @@
-<section class="relative h-screen flex items-center justify-center text-white">
+<section class="bg-gray-50 py-16 md:py-24">
 
-  <!-- Background -->
-  <div class="absolute inset-0">
-    <img 
-      src="https://images.unsplash.com/photo-1584515933487-779824d29309"
-      class="w-full h-full object-cover"
-      alt="Healthcare"
-    />
-    <div class="absolute inset-0 bg-black/60"></div>
-  </div>
+  <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
 
-  <!-- Content -->
-  <div class="relative z-10 text-center max-w-3xl px-6">
+    <!-- LEFT: CONTENT -->
+    <div class="text-center md:text-left">
 
-    <p class="uppercase tracking-widest text-sm mb-4 text-gray-200">
-      Kindness & Support International
-    </p>
+      <p class="uppercase tracking-[0.3em] text-xs text-gray-500 mb-4">
+        Kindness & Support International
+      </p>
 
-    <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-6">
-      Every Life Deserves <br />
-      <span class="text-primary">a Fighting Chance</span>
-    </h1>
+      <h1 class="text-3xl md:text-5xl font-bold leading-tight mb-6 text-gray-900">
+        Every Life Deserves <br />
+        <span class="text-primary">a Fighting Chance</span>
+      </h1>
 
-    <p class="text-lg text-gray-200 mb-8">
-      We connect compassionate donors with patients in urgent need —
-      transparently, swiftly, and with dignity.
-    </p>
+      <p class="text-gray-600 text-base md:text-lg mb-8 max-w-lg mx-auto md:mx-0">
+        We connect compassionate donors with patients in urgent need — 
+        transparently, swiftly, and with dignity.
+      </p>
 
-    <!-- Buttons -->
-    <div class="flex justify-center gap-4 mb-12">
-      <a 
-        routerLink="/request"
-        class="bg-primary hover:bg-primaryDark px-6 py-3 rounded-lg font-semibold inline-block text-center"
+      <!-- Buttons -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start mb-10">
+
+        <a 
+          routerLink="/request"
+          class="bg-primary hover:bg-primaryDark text-white px-7 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg"
         >
-        Request Support →
+          Request Support →
         </a>
 
-      <a 
-        routerLink="/cases"
-        class="border border-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-black inline-block text-center"
+        <a 
+          routerLink="/cases"
+          class="border border-gray-300 text-gray-700 px-7 py-3 rounded-xl font-semibold transition-all duration-300 hover:bg-gray-900 hover:text-white hover:scale-105"
         >
-        View Active Cases
+          View Active Cases
         </a>
+
+      </div>
+
+      <!-- Stats -->
+      <div class="grid grid-cols-3 gap-4">
+
+        <div *ngFor="let stat of stats" class="text-center md:text-left">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900">
+            {{ stat.value }}
+          </h3>
+          <p class="text-xs text-gray-500">
+            {{ stat.label }}
+          </p>
+        </div>
+
+      </div>
+
     </div>
 
-    <!-- Stats -->
-    <div class="grid grid-cols-3 gap-6 text-center">
+    <!-- RIGHT: IMAGE CARD -->
+    <div class="relative">
 
-      <div *ngFor="let stat of stats">
-        <h3 class="text-2xl font-bold">{{ stat.value }}</h3>
-        <p class="text-sm text-gray-300">{{ stat.label }}</p>
+      <!-- Image container -->
+      <div class="rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.15)]">
+
+        <img 
+          src="https://images.unsplash.com/photo-1584515933487-779824d29309"
+          class="w-full h-[320px] md:h-[500px] object-cover"
+          alt="Healthcare"
+        />
+
+      </div>
+
+      <!-- Floating highlight card -->
+      <div class="absolute -bottom-6 left-6 right-6 md:right-auto md:w-[70%] bg-white rounded-2xl shadow-lg p-4 flex justify-between items-center">
+
+        <div>
+          <p class="text-xs text-gray-500">Lives Impacted</p>
+          <p class="font-bold text-gray-900">1,200+</p>
+        </div>
+
+        <div class="text-primary font-semibold text-sm">
+          Trusted Platform
+        </div>
+
       </div>
 
     </div>
