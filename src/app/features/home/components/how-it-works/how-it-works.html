@@ -1,45 +1,65 @@
-<section class="py-20 bg-gray-50">
+<section class="py-20 md:py-24 bg-gray-50">
 
-  <div class="max-w-6xl mx-auto px-6 text-center">
+  <div class="max-w-7xl mx-auto px-6 text-center">
 
     <!-- Heading -->
-    <h2 class="text-3xl md:text-4xl font-bold mb-4">
+    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
       How It Works
     </h2>
 
-    <p class="text-gray-600 mb-12">
+    <p class="text-gray-600 mb-16 max-w-2xl mx-auto">
       A simple and transparent process to get help when it matters most.
     </p>
 
     <!-- Steps -->
-    <div class="grid md:grid-cols-3 gap-10">
+    <div class="grid gap-8 md:grid-cols-3 relative">
 
       <div 
-        *ngFor="let step of steps; let i = index"
-        class="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition"
-      >
+  *ngFor="let step of steps; let i = index"
+  class="relative bg-white p-8 rounded-2xl shadow-[0_8px_25px_rgba(0,0,0,0.06)] hover:shadow-[0_18px_45px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-1"
+>
 
-        <!-- Step Number -->
-        <div class="text-sm font-semibold text-primary mb-2">
-          Step {{ i + 1 }}
-        </div>
+  <!-- Step Badge -->
+  <div class="absolute -top-4 left-6 bg-primary text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">
+    Step {{ i + 1 }}
+  </div>
 
-        <!-- Icon -->
-        <div class="text-4xl mb-4">
-          {{ step.icon }}
-        </div>
+  <!-- Icon -->
+  <div class="w-14 h-14 flex items-center justify-center mx-auto mb-5 rounded-xl bg-primary/10 text-primary">
 
-        <!-- Title -->
-        <h3 class="text-xl font-semibold mb-2">
-          {{ step.title }}
-        </h3>
+    <!-- Switch icons based on step -->
+    <ng-container [ngSwitch]="i">
 
-        <!-- Description -->
-        <p class="text-gray-600">
-          {{ step.description }}
-        </p>
+      <!-- Step 1 -->
+      <svg *ngSwitchCase="0" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+      </svg>
 
-      </div>
+      <!-- Step 2 -->
+      <svg *ngSwitchCase="1" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h4l3 8 4-16 3 8h4"/>
+      </svg>
+
+      <!-- Step 3 -->
+      <svg *ngSwitchCase="2" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+      </svg>
+
+    </ng-container>
+
+  </div>
+
+  <!-- Title -->
+  <h3 class="text-lg md:text-xl font-semibold mb-2 text-gray-900">
+    {{ step.title }}
+  </h3>
+
+  <!-- Description -->
+  <p class="text-gray-600 text-sm md:text-base leading-relaxed">
+    {{ step.description }}
+  </p>
+
+</div>
 
     </div>
 

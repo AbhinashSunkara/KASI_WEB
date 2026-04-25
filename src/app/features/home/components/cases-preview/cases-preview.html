@@ -1,13 +1,12 @@
-<section class="py-20">
+<section class="py-20 md:py-24 bg-gray-50">
 
-  <div class="max-w-6xl mx-auto px-6">
+  <div class="max-w-7xl mx-auto px-6">
 
     <!-- Header -->
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-12">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-10">
 
-      <!-- Left -->
       <div>
-        <h2 class="text-3xl md:text-4xl font-bold mb-2">
+        <h2 class="text-3xl md:text-4xl font-bold mb-2 text-gray-900">
           Active Cases
         </h2>
         <p class="text-gray-600">
@@ -15,77 +14,117 @@
         </p>
       </div>
 
-      <!-- Right -->
       <a 
         routerLink="/cases"
-        class="bg-primary hover:bg-primaryDark text-white px-5 py-2 rounded-lg font-semibold text-center"
+        class="bg-primary hover:bg-primaryDark text-white px-5 py-2 rounded-xl text-sm font-semibold transition-all duration-300 hover:scale-105 hover:shadow-md text-center"
       >
         View All Cases →
       </a>
 
     </div>
 
-    <!-- Cards -->
-    <div class="grid md:grid-cols-3 gap-8">
+    <!-- CASES EXIST -->
+    <div *ngIf="cases && cases.length > 0; else emptyState">
 
       <div 
-        *ngFor="let c of cases"
-        class="bg-white rounded-xl shadow-sm hover:shadow-md transition overflow-hidden"
+        class="flex md:grid md:grid-cols-3 gap-5 overflow-x-auto md:overflow-visible pb-4 scrollbar-hide"
+        [ngClass]="{
+          'justify-center md:grid-cols-1': cases.length === 1
+        }"
       >
 
-        <!-- Image -->
-        <div class="h-40 bg-gray-200">
-          <img 
-            src="https://images.unsplash.com/photo-1579154204601-01588f351e67"
-            class="w-full h-full object-cover"
-          />
-        </div>
+        <div 
+  *ngFor="let c of cases"
+  class="min-w-[260px] md:min-w-0 bg-white rounded-2xl shadow-[0_8px_25px_rgba(0,0,0,0.06)] hover:shadow-[0_18px_45px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-1 overflow-hidden group"
+>
 
-        <!-- Content -->
-        <div class="p-6">
+  <!-- Image -->
+  <div class="h-[160px] overflow-hidden">
+    <img 
+      src="https://images.unsplash.com/photo-1579154204601-01588f351e67"
+      class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+    />
+  </div>
 
-          <h3 class="text-lg font-semibold">
-            {{ c.name }}
-          </h3>
+  <!-- Content -->
+  <div class="p-5">
 
-          <p class="text-sm text-gray-500 mb-2">
-            {{ c.condition }}
-          </p>
+    <h3 class="text-base md:text-lg font-semibold text-gray-900 mb-1 leading-snug">
+      {{ c.name }}
+    </h3>
 
-          <p class="text-sm text-gray-400 mb-4">
-            {{ c.hospital }}
-          </p>
+    <p class="text-sm text-gray-500 mb-1">
+      {{ c.condition }}
+    </p>
 
-          <!-- Progress -->
-          <div class="mb-2">
-            <div class="w-full bg-gray-200 h-2 rounded-full">
-              <div 
-                class="bg-primary h-2 rounded-full"
-                [style.width.%]="getProgress(c.raised, c.goal)"
-              ></div>
-            </div>
-          </div>
+    <p class="text-xs text-gray-400 mb-4">
+      {{ c.hospital }}
+    </p>
 
-          <!-- Amount -->
-          <div class="flex justify-between text-sm mb-4">
-            <span class="font-semibold text-primary">
-              ₹{{ c.raised | number }}
-            </span>
-            <span class="text-gray-500">
-              of ₹{{ c.goal | number }}
-            </span>
-          </div>
+    <!-- Progress -->
+    <div class="mb-3">
+      <div class="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
+        <div 
+          class="bg-primary h-2 rounded-full transition-all duration-500"
+          [style.width.%]="getProgress(c.raised, c.goal)"
+        ></div>
+      </div>
+    </div>
 
-          <!-- CTA -->
-          <button class="w-full bg-primary hover:bg-primaryDark text-white py-2 rounded-lg">
-            Donate Now
-          </button>
+    <!-- Amount -->
+    <div class="flex justify-between text-sm mb-4">
+      <span class="font-semibold text-primary">
+        ₹{{ c.raised | number }}
+      </span>
+      <span class="text-gray-500">
+        of ₹{{ c.goal | number }}
+      </span>
+    </div>
 
-        </div>
+    <!-- CTA -->
+    <button class="w-full bg-primary hover:bg-primaryDark text-white py-2.5 rounded-xl font-semibold transition-all duration-300 hover:shadow-md active:scale-[0.98]">
+      Donate Now
+    </button>
+
+  </div>
+
+</div>
 
       </div>
 
     </div>
+
+    <!-- EMPTY STATE -->
+    <ng-template #emptyState>
+
+      <div class="flex flex-col items-center justify-center text-center py-16">
+
+        <!-- Icon -->
+        <div class="w-20 h-20 flex items-center justify-center rounded-full bg-primary/10 text-primary text-3xl mb-6">
+          💙
+        </div>
+
+        <!-- Title -->
+        <h3 class="text-xl md:text-2xl font-semibold text-gray-900 mb-2">
+          No Active Cases Right Now
+        </h3>
+
+        <!-- Description -->
+        <p class="text-gray-500 max-w-md mb-6">
+          Currently there are no pending requests. But your support makes a difference — check back soon or help spread awareness.
+        </p>
+
+        <!-- CTA -->
+        <a 
+          routerLink="/request"
+          class="bg-primary hover:bg-primaryDark text-white px-6 py-2.5 rounded-xl font-semibold transition-all duration-300 hover:scale-105 hover:shadow-md"
+        >
+          Request Support →
+        </a>
+
+      </div>
+
+    </ng-template>
 
   </div>
 
