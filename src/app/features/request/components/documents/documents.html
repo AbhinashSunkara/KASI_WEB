@@ -1,15 +1,23 @@
-<section class="p-6">
+<section class="max-w-2xl mx-auto">
 
-  <h2 class="text-2xl font-bold mb-4">
-    Upload Documents
-  </h2>
+  <!-- Header -->
+  <div class="mb-5 text-center">
 
-  <p class="text-gray-600 mb-6">
-    Please upload medical reports and supporting documents.
-  </p>
+    <h2 class="text-xl md:text-2xl font-semibold text-gray-900 mb-1">
+      Upload Documents
+    </h2>
+
+    <p class="text-sm text-gray-500">
+      Upload medical reports and supporting files
+    </p>
+
+  </div>
 
   <!-- Upload Box -->
-  <div class="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center">
+  <div 
+    class="border-2 border-dashed border-gray-300 rounded-xl p-6 md:p-8 text-center cursor-pointer hover:border-primary transition"
+    (click)="fileInput.click()"
+  >
 
     <input 
       type="file"
@@ -19,50 +27,62 @@
       #fileInput
     />
 
-    <button 
-      (click)="fileInput.click()"
-      class="bg-primary text-white px-6 py-2 rounded-lg"
-    >
-      Upload Files
-    </button>
+    <!-- Icon -->
+    <div class="mb-3 flex justify-center text-gray-400">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 16V4m0 0l-4 4m4-4l4 4M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2"/>
+      </svg>
+    </div>
 
-    <p class="text-sm text-gray-500 mt-2">
-      Supported: PDF, JPG, PNG
+    <!-- Text -->
+    <p class="text-sm font-medium text-gray-700">
+      Click to upload files
+    </p>
+
+    <p class="text-xs text-gray-500 mt-1">
+      PDF, JPG, PNG
     </p>
 
   </div>
 
   <!-- File List -->
-  <div class="mt-6 space-y-3">
+  <div *ngIf="uploadedFiles.length > 0" class="mt-5 space-y-2">
 
-  <div 
-    *ngFor="let file of uploadedFiles; let i = index"
-    class="flex items-center justify-between bg-gray-100 p-3 rounded-lg"
-  >
-
-    <span class="text-sm">
-      {{ file.fileName }}
-    </span>
-
-    <button 
-      (click)="removeFile(i)"
-      class="text-red-500 text-sm"
+    <div 
+      *ngFor="let file of uploadedFiles; let i = index"
+      class="flex items-center justify-between bg-gray-50 border rounded-lg px-3 py-2"
     >
-      Remove
-    </button>
+
+      <!-- File name -->
+      <span class="text-sm text-gray-700 truncate">
+        {{ file.fileName }}
+      </span>
+
+      <!-- Remove -->
+      <button 
+        (click)="removeFile(i)"
+        class="text-red-500 text-xs hover:underline"
+      >
+        Remove
+      </button>
+
+    </div>
 
   </div>
 
-</div>
+  <!-- Empty State -->
+  <p *ngIf="uploadedFiles?.length === 0" class="text-xs text-gray-400 mt-4 text-center">
+    No files uploaded yet
+  </p>
 
-  <!-- Submit Button -->
-<div class="mt-6 text-right">
-  <button 
-    (click)="submit()"
-    class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primaryDark"
-  >
-    Save & Continue
-  </button>
-</div>
+  <!-- Submit -->
+  <div class="mt-6">
+    <button 
+      (click)="submit()"
+      class="w-full bg-primary text-white py-2.5 rounded-lg text-sm font-semibold hover:bg-primaryDark transition"
+    >
+      Continue →
+    </button>
+  </div>
 
 </section>

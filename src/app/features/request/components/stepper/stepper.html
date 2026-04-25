@@ -1,150 +1,162 @@
-<div class="max-w-4xl mx-auto p-6">
+<section class="py-10 bg-gray-50 min-h-screen">
 
-  <!-- Step Indicators -->
-  <div class="flex justify-between mb-10">
+  <div class="max-w-4xl mx-auto px-4 md:px-6">
 
-    <div 
-      *ngFor="let step of steps; let i = index"
-      class="flex-1 text-center cursor-pointer"
-      (click)="goToStep(i)"
-    >
+    <!-- STEP PROGRESS -->
+    <div class="mb-8">
 
-      <div 
-        class="w-8 h-8 mx-auto rounded-full flex items-center justify-center"
-        [ngClass]="{
-          'bg-primary text-white': i <= currentStep,
-          'bg-gray-300 text-gray-600': i > currentStep
-        }"
-      >
-        {{ i + 1 }}
-      </div>
+      <div class="flex items-center justify-between relative">
 
-      <p class="text-sm mt-2">
-        {{ step }}
-      </p>
+        <!-- Line -->
+        <div class="absolute top-4 left-0 w-full h-[2px] bg-gray-200"></div>
 
-    </div>
+        <div 
+          *ngFor="let step of steps; let i = index"
+          class="relative flex-1 text-center"
+        >
 
-  </div>
-
-  <!-- Step Content -->
-  <div class="bg-white p-6 rounded-xl shadow">
-
-    <!-- Step 1 -->
-    <app-patient-info 
-      *ngIf="currentStep === 0"
-      [initialData]="patientData"
-      (nextStep)="handleNext($event)"
-    ></app-patient-info>
-
-    <!-- Step 2 -->
-    <app-medical-info 
-      *ngIf="currentStep === 1"
-      [initialData]="medicalData"
-      (nextStep)="handleNext($event)"
-    ></app-medical-info>
-
-    <!-- Step 3 -->
-    <!-- ✅ FIX 2 (REMOVED initialFiles binding) -->
-    <app-documents 
-      *ngIf="currentStep === 2"
-      (filesSelected)="handleDocuments($event)"
-    ></app-documents>
-
-    <!-- Step 4 -->
-    <div *ngIf="currentStep === 3">
-
-      <h2 class="text-2xl font-bold mb-6">
-        Review & Submit
-      </h2>
-
-      <div class="space-y-6">
-
-        <!-- Patient -->
-        <div class="border rounded-lg p-4">
-          <h3 class="font-semibold mb-3">Patient Information</h3>
-
-          <div class="grid grid-cols-2 gap-3 text-sm">
-            <p><strong>Name:</strong> {{ patientData?.name }}</p>
-            <p><strong>Age:</strong> {{ patientData?.age }}</p>
-            <p><strong>Gender:</strong> {{ patientData?.gender }}</p>
-            <p><strong>Phone:</strong> {{ patientData?.phone }}</p>
-            <p><strong>City:</strong> {{ patientData?.city }}</p>
-          </div>
-        </div>
-
-        <!-- Medical -->
-        <div class="border rounded-lg p-4">
-          <h3 class="font-semibold mb-3">Medical Information</h3>
-
-          <div class="grid grid-cols-2 gap-3 text-sm">
-            <p><strong>Condition:</strong> {{ medicalData?.condition }}</p>
-            <p><strong>Hospital:</strong> {{ medicalData?.hospital }}</p>
-            <p><strong>Doctor:</strong> {{ medicalData?.doctor || '-' }}</p>
-            <p><strong>Estimated Cost:</strong> ₹{{ medicalData?.estimatedCost }}</p>
-          </div>
-
-          <p class="mt-3 text-sm">
-            <strong>Description:</strong> {{ medicalData?.description }}
-          </p>
-        </div>
-
-        <!-- Documents -->
-        <div class="border rounded-lg p-4">
-          <h3 class="font-semibold mb-3">Uploaded Documents</h3>
-
-          <p *ngIf="showDocumentError" class="text-red-500 text-sm mt-2">
-            Please upload at least one document before submitting.
-          </p>
-
-          <div *ngIf="documents && documents.length > 0; else noDocs">
-            <ul class="text-sm space-y-1">
-              <li *ngFor="let file of documents">
-                {{ file.fileName }}
-              </li>
-            </ul>
-          </div>
-
-          <ng-template #noDocs>
-            <p class="text-gray-500 text-sm">No documents uploaded</p>
-          </ng-template>
-        </div>
-
-        <!-- Submit -->
-        <div class="text-right">
-          <button 
-            class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg"
-            (click)="submitAll()"
+          <!-- Circle -->
+          <div 
+            class="w-8 h-8 mx-auto rounded-full flex items-center justify-center text-sm font-semibold z-10 relative"
+            [ngClass]="{
+              'bg-primary text-white': i <= currentStep,
+              'bg-gray-300 text-gray-600': i > currentStep
+            }"
           >
-            Submit Request
-          </button>
+            {{ i + 1 }}
+          </div>
+
+          <!-- Label -->
+          <p class="text-xs md:text-sm mt-2 text-gray-600 whitespace-nowrap">
+            {{ step }}
+          </p>
+
         </div>
 
       </div>
 
     </div>
 
+    <!-- CONTENT CARD -->
+    <div class="bg-gray-100 rounded-xl shadow-sm p-4 md:p-6">
+
+      <!-- Step 1 -->
+      <app-patient-info 
+        *ngIf="currentStep === 0"
+        [initialData]="patientData"
+        (nextStep)="handleNext($event)"
+      ></app-patient-info>
+
+      <!-- Step 2 -->
+      <app-medical-info 
+        *ngIf="currentStep === 1"
+        [initialData]="medicalData"
+        (nextStep)="handleNext($event)"
+      ></app-medical-info>
+
+      <!-- Step 3 -->
+      <app-documents 
+        *ngIf="currentStep === 2"
+        [files]="documents"
+        (filesSelected)="handleDocuments($event)"
+      ></app-documents>
+
+      <!-- Step 4 -->
+      <div *ngIf="currentStep === 3">
+
+        <h2 class="text-xl md:text-2xl font-semibold mb-6">
+          Review & Submit
+        </h2>
+
+        <div class="space-y-5">
+
+          <!-- Patient -->
+          <div class="border rounded-lg p-4">
+            <h3 class="font-semibold mb-3 text-sm">Patient Information</h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+              <p><strong>Name:</strong> {{ patientData?.name }}</p>
+              <p><strong>Age:</strong> {{ patientData?.age }}</p>
+              <p><strong>Gender:</strong> {{ patientData?.gender }}</p>
+              <p><strong>Phone:</strong> {{ patientData?.phone }}</p>
+              <p><strong>City:</strong> {{ patientData?.city }}</p>
+            </div>
+          </div>
+
+          <!-- Medical -->
+          <div class="border rounded-lg p-4">
+            <h3 class="font-semibold mb-3 text-sm">Medical Information</h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+              <p><strong>Condition:</strong> {{ medicalData?.condition }}</p>
+              <p><strong>Hospital:</strong> {{ medicalData?.hospital }}</p>
+              <p><strong>Doctor:</strong> {{ medicalData?.doctor || '-' }}</p>
+              <p><strong>Estimated Cost:</strong> ₹{{ medicalData?.estimatedCost }}</p>
+            </div>
+
+            <p class="mt-3 text-sm">
+              <strong>Description:</strong> {{ medicalData?.description }}
+            </p>
+          </div>
+
+          <!-- Documents -->
+          <div class="border rounded-lg p-4">
+            <h3 class="font-semibold mb-3 text-sm">Uploaded Documents</h3>
+
+            <p *ngIf="showDocumentError" class="text-red-500 text-xs mt-2">
+              Please upload at least one document before submitting.
+            </p>
+
+            <div *ngIf="documents.length > 0; else noDocs">
+              <ul class="text-sm space-y-1">
+                <li *ngFor="let file of documents">
+                  {{ file.fileName }}
+                </li>
+              </ul>
+            </div>
+
+            <ng-template #noDocs>
+              <p class="text-gray-500 text-sm">No documents uploaded</p>
+            </ng-template>
+          </div>
+
+          <!-- Submit -->
+          <div class="text-right">
+            <button 
+              class="bg-green-600 hover:bg-green-700 text-white px-6 py-2.5 rounded-lg text-sm font-semibold"
+              (click)="submitAll()"
+            >
+              Submit Request
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- NAVIGATION -->
+    <div class="flex items-center justify-between mt-6">
+
+      <button 
+        (click)="prev()"
+        [disabled]="currentStep === 0"
+        class="px-4 py-2 border rounded-lg text-sm disabled:opacity-50"
+      >
+        Back
+      </button>
+
+      <button 
+        (click)="next()"
+        [disabled]="!canProceed() || currentStep === steps.length - 1"
+        class="bg-primary text-white px-6 py-2.5 rounded-lg text-sm font-semibold disabled:bg-gray-400"
+      >
+        Next →
+      </button>
+
+    </div>
+
   </div>
 
-  <!-- Navigation -->
-  <div class="flex justify-between mt-6">
-
-    <button 
-      (click)="prev()"
-      [disabled]="currentStep === 0"
-      class="px-4 py-2 border rounded-lg"
-    >
-      Back
-    </button>
-
-    <button 
-      (click)="next()"
-      [disabled]="!canProceed() || currentStep === steps.length - 1"
-      class="bg-primary text-white px-6 py-2 rounded-lg disabled:bg-gray-400"
-    >
-      Next
-    </button>
-
-  </div>
-
-</div>
+</section>
