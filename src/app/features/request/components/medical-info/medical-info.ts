@@ -21,7 +21,7 @@ export class MedicalInfo implements OnInit {
       hospital: ['', Validators.required],
       doctor: [''],
       estimatedCost: ['', [Validators.required, Validators.min(1000)]],
-      description: ['', Validators.required]
+      description: ['', [Validators.required, Validators.minLength(50)]]
     });
 
     if (this.initialData) {
