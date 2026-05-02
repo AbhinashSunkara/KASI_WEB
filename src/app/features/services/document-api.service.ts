@@ -34,4 +34,12 @@ export class DocumentApiService {
       this.http.delete(`${this.baseUrl}/documents`, { params })
     );
   }
+
+   async getSecureFile(fileUrl: string): Promise<string> {
+  const params = new HttpParams().set('fileUrl', fileUrl);
+
+  return await firstValueFrom(
+    this.http.get<string>(`${this.baseUrl}/documents`, { params })
+  );
+}
 }

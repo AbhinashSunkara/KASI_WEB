@@ -1,0 +1,168 @@
+<div class=" p-5">
+
+  <!-- Header -->
+  <div class="flex justify-between items-start mb-8">
+
+    <div>
+      <div class="flex items-center gap-2 mb-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+        <p class="text-[11px] font-semibold tracking-[0.18em] text-primary uppercase">
+          Verification Queue
+        </p>
+      </div>
+
+      <h1 class="text-2xl font-semibold text-gray-900">
+        Campaign Requests
+      </h1>
+
+      <p class="text-sm text-gray-500 mt-1">
+        {{ campaigns.length }} {{ getStatus(currentStatus) }} requests need your review.
+      </p>
+    </div>
+
+    <!-- Filter -->
+    <button
+      class="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md text-sm transition"
+    >
+      <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" stroke-width="1.6">
+        <path d="M3 5h18M6 12h12M10 19h4"/>
+      </svg>
+      <span class="text-gray-700 font-medium">Filter</span>
+    </button>
+
+  </div>
+
+  <!-- 🔥 STATUS TABS (ONLY ADDITION) -->
+  <div class="flex gap-2 mb-6">
+
+    <button
+      (click)="changeTab(1)"
+      [class.bg-primary]="currentStatus === 1"
+      [class.text-white]="currentStatus === 1"
+      class="px-4 py-2 rounded-xl border text-sm transition"
+    >
+      Pending
+    </button>
+
+    <button
+      (click)="changeTab(2)"
+      [class.bg-primary]="currentStatus === 2"
+      [class.text-white]="currentStatus === 2"
+      class="px-4 py-2 rounded-xl border text-sm transition"
+    >
+      Active
+    </button>
+
+    <button
+      (click)="changeTab(3)"
+      [class.bg-primary]="currentStatus === 3"
+      [class.text-white]="currentStatus === 3"
+      class="px-4 py-2 rounded-xl border text-sm transition"
+    >
+      Completed
+    </button>
+
+    <button
+      (click)="changeTab(4)"
+      [class.bg-primary]="currentStatus === 4"
+      [class.text-white]="currentStatus === 4"
+      class="px-4 py-2 rounded-xl border text-sm transition"
+    >
+      Cancelled
+    </button>
+
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="p-10 text-center text-gray-400">
+    Loading campaigns...
+  </div>
+
+  <!-- Empty -->
+  <div *ngIf="!loading && campaigns.length === 0" class="p-10 text-center text-gray-400">
+    No campaign requests found
+  </div>
+
+  <!-- Cards -->
+  <div
+    *ngIf="!loading && campaigns.length > 0"
+    class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+  >
+
+    <div
+      *ngFor="let c of campaigns"
+      (click)="view(c.campaignId)"
+      class="bg-white rounded-3xl p-5 cursor-pointer
+             shadow-[0_10px_30px_rgba(0,0,0,0.05)]
+             hover:shadow-[0_18px_40px_rgba(0,0,0,0.08)]
+             hover:-translate-y-1
+             transition duration-300 relative"
+    >
+
+      <!-- Status -->
+      <span class="text-[11px] bg-white shadow text-yellow-600 px-2.5 py-1 rounded-full font-medium">
+        {{ getStatus(c.status) }}
+      </span>
+
+      <!-- Avatar -->
+      <div class="mt-4 mb-4">
+        <div class="w-12 h-12 rounded-xl bg-gray-100 flex items-center justify-center text-primary font-semibold">
+          {{ (c.patientName || 'U')[0] }}
+        </div>
+      </div>
+
+      <!-- Name + Icon -->
+      <div class="flex justify-between items-start">
+        <h3 class="font-semibold text-gray-900 text-sm leading-tight">
+          {{ c.patientName }}
+        </h3>
+
+        <button
+          (click)="view(c.campaignId); $event.stopPropagation()"
+          class="flex items-center justify-center
+                 w-7 h-7 rounded-md
+                 text-gray-400 bg-gray-50 border border-gray-200
+                 hover:text-white hover:bg-primary hover:border-primary
+                 transition-all duration-200"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right-icon lucide-arrow-up-right"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+
+        </button>
+      </div>
+
+      <!-- Condition -->
+      <p class="flex items-center gap-2 text-xs text-gray-500 mt-2">
+        <svg class="w-3.5 h-3.5 text-gray-400" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M19,8a2.99,2.99,0,0,0-1,5.81V15.5a4.5,4.5,0,0,1-9,0V14.48l3.12-2.49A4.97,4.97,0,0,0,14,8.07V3a1,1,0,0,0-1-1H11a1,1,0,0,0,0,2h1V8.07a2.98,2.98,0,0,1-1.12,2.34L8,12.71,5.12,10.42A2.98,2.98,0,0,1,4,8.07V4H5A1,1,0,0,0,5,2H3A1,1,0,0,0,2,3V8.07a4.97,4.97,0,0,0,1.87,3.9L7,14.48V15.5a6.5,6.5,0,0,0,13,0V13.81A2.99,2.99,0,0,0,19,8Z"/>
+        </svg>
+        {{ c.condition }}
+      </p>
+
+      <!-- Location -->
+      <p class="flex items-center gap-2 text-xs text-gray-500 mt-1">
+        <svg class="w-3.5 h-3.5 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 
+          9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5 14.5 7.62 14.5 9 13.38 11.5 12 11.5z"/>
+        </svg>
+        {{ c.hospital }}
+      </p>
+
+      <!-- Progress -->
+      <div class="mt-4">
+        <p class="text-[11px] text-gray-400 mb-1">Raised</p>
+
+        <div class="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
+          <div
+            class="h-1.5 bg-primary rounded-full transition-all duration-500"
+            [style.width.%]="(c.raisedAmount / c.goalAmount) * 100"
+          ></div>
+        </div>
+
+        <div class="flex justify-end text-[11px] text-gray-600 mt-1">
+          ₹{{ c.raisedAmount }} / ₹{{ c.goalAmount }}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

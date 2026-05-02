@@ -31,7 +31,15 @@ export class RequestContextService {
         this.role = value;
         this.isAdmin = (this.role === 'Admin' || this.role === 'admin');
     });
-}
+
+    console.log('RequestContextService initialized with:', {
+        isLoggedIn: this.isLoggedIn,
+        privileges: this.privileges,
+        features: this.features,
+        role: this.role,
+        isAdmin: this.isAdmin
+    });
+  }
 
     hasPrivilege(privilege: Privileges): boolean {
     return this.privileges.includes(privilege);

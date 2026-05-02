@@ -1,3 +1,5 @@
+import { CampaignStatus } from "./Enums";
+
 export interface CreateCampaignRequestDto {
   title: string;
   story: string;
@@ -35,7 +37,7 @@ export interface CampaignQueryParamsDto {
   pageSize?: number;
   search?: string;
   city?: string;
-  status?: string;
+  status?: CampaignStatus;
   sortBy?: string;
 }
 
@@ -46,7 +48,7 @@ export interface UpdateCampaignRequest {
 }
 
 export interface UpdateCampaignStatusRequest {
-  status: string; // "Active" | "Rejected" | "Pending"
+  status: CampaignStatus;
 }
 
 export interface CampaignListItemDto {
@@ -55,7 +57,7 @@ export interface CampaignListItemDto {
   goalAmount: number;
   totalRaised: number;
   city: string;
-  status: string;
+  status: CampaignStatus;
   createdAt: string;
 }
 

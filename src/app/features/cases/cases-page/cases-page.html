@@ -1,10 +1,59 @@
-<section class="py-20">
+<section class="py-16 md:py-20 bg-gray-50">
 
-  <div class="max-w-7xl mx-auto px-6">
 
-    <h1 class="text-3xl md:text-4xl font-bold mb-10">
-      Active Cases
-    </h1>
+  <!-- Empty -->
+      <div *ngIf="cases?.length === 0" class="py-16 text-center">
+
+        <div class="w-20 h-20 mx-auto flex items-center justify-center rounded-full bg-primary/10 text-primary text-3xl mb-6">
+          💙
+        </div>
+
+        <h3 class="text-xl font-semibold text-gray-900 mb-2">
+          No Active Cases Right Now
+        </h3>
+
+        <p class="text-gray-500 max-w-md mx-auto mb-6">
+          There are no active requests at the moment. Check back later or help spread awareness.
+        </p>
+
+        <a 
+          routerLink="/request"
+          class="inline-flex px-6 py-2.5 rounded-xl bg-primary text-white font-semibold hover:bg-primaryDark transition">
+          Request Support →
+        </a>
+
+      </div>
+  <div *ngIf="cases.length != 0" class="max-w-7xl mx-auto px-6">
+
+    <div class="mb-10 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+
+      <div>
+        <div class="flex items-center gap-2 mb-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+          <p class="text-[11px] tracking-[0.18em] uppercase text-primary font-semibold">
+            Live Fundraisers
+          </p>
+        </div>
+
+        <h1 class="text-3xl md:text-4xl font-semibold text-gray-900">
+          Active Cases
+        </h1>
+
+        <p class="text-gray-500 mt-1 text-sm md:text-base">
+          Support patients who need urgent medical care.
+        </p>
+      </div>
+
+      <!-- Optional CTA -->
+      <a 
+        routerLink="/request"
+        class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl
+               bg-primary text-white text-sm font-semibold
+               hover:bg-primaryDark transition shadow-sm hover:shadow-md">
+        Start a Request
+      </a>
+
+    </div>
 
     <app-case-list [cases]="cases"></app-case-list>
 

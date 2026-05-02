@@ -1,0 +1,80 @@
+<div class="w-64 min-h-screen bg-[#F6F8FA] border-r border-gray-200 flex flex-col px-4 py-6">
+
+  <!-- Logo -->
+  <div class="flex items-center gap-3 mb-10 px-2">
+    <div class="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center">
+      <span class="text-primary font-bold">K</span>
+    </div>
+    <div>
+      <p class="text-sm font-semibold text-gray-900 leading-none">KASI</p>
+      <p class="text-[10px] text-gray-400 tracking-wide">ADMIN CONSOLE</p>
+    </div>
+  </div>
+
+  <!-- Section Label -->
+  <p class="text-[11px] text-gray-400 uppercase tracking-wider mb-3 px-2">
+    Workspace
+  </p>
+
+  <!-- Menu -->
+  <nav class="space-y-1 text-sm">
+
+    <!-- Dashboard -->
+    <a 
+      routerLink="/admin"
+      routerLinkActive="bg-white text-gray-900 shadow-sm"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-500 hover:bg-white transition"
+    >
+      <!-- Icon -->
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M3 10l9-7 9 7v9a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z" />
+      </svg>
+      Dashboard
+    </a>
+
+    <!-- Campaigns -->
+    <a 
+      routerLink="/admin/campaigns"
+      routerLinkActive="bg-white text-gray-900 shadow-sm"
+      class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-500 hover:bg-white transition"
+    >
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M7 8h10M7 12h6m-6 4h10M5 4h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5a1 1 0 011-1z"/>
+      </svg>
+      Campaigns
+    </a>
+
+    <!-- Documents -->
+    <!-- <a 
+      routerLink="/admin/documents"
+      routerLinkActive="bg-white text-gray-900 shadow-sm"
+      class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-500 hover:bg-white transition"
+    >
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M7 7V3h6l4 4v10a2 2 0 01-2 2H7a2 2 0 01-2-2V7z"/>
+      </svg>
+      Documents
+    </a> -->
+
+  </nav>
+
+  <!-- Bottom -->
+  <div class="mt-auto pt-6 border-t border-gray-200">
+
+    <button 
+      class="flex items-center gap-2 text-sm text-gray-500 hover:text-red-500 transition px-2 py-2"
+    >
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1m0-10V4"/>
+      </svg>
+      Logout
+    </button>
+
+  </div>
+
+</div>

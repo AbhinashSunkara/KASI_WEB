@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainLayout } from './layout/main-layout/main-layout';
+import { Unauthorized } from './shared/pages/unauthorized/unauthorized';
 
 const routes: Routes = [
   {
@@ -26,7 +27,17 @@ const routes: Routes = [
         path: 'auth',
         loadChildren: () =>
             import('./features/auth/auth-module').then(m => m.AuthModule)
-       }
+       },
+       {
+        path: 'admin',
+        loadChildren: () =>
+          import('./features/dashboard/dashboard-module')
+            .then(m => m.DashboardModule)
+      },
+      {
+        path: 'unauthorized',
+        component: Unauthorized
+      }
     ]
   }
 ];

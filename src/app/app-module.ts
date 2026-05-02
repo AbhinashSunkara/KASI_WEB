@@ -1,6 +1,6 @@
 import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { App } from './app';
 import { AppRoutingModule } from './app-routing-module';
 import { MainLayout } from './layout/main-layout/main-layout';
@@ -33,6 +33,7 @@ import { authReducer } from './core/services/auth.reducer';
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
+    provideAnimations(),
     provideHttpClient(withInterceptorsFromDi()), // replaces HttpClientModule
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     {  provide: HTTP_INTERCEPTORS, useClass: RefreshTokenInterceptor, multi: true },

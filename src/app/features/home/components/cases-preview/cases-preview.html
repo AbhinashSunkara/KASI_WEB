@@ -50,7 +50,7 @@
   <div class="p-5">
 
     <h3 class="text-base md:text-lg font-semibold text-gray-900 mb-1 leading-snug">
-      {{ c.name }}
+      {{ c.patientName }}
     </h3>
 
     <p class="text-sm text-gray-500 mb-1">
@@ -66,7 +66,7 @@
       <div class="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
         <div 
           class="bg-primary h-2 rounded-full transition-all duration-500"
-          [style.width.%]="getProgress(c.raised, c.goal)"
+          [style.width.%]="getProgress(c.raisedAmount, c.goalAmount)"
         ></div>
       </div>
     </div>
@@ -74,10 +74,10 @@
     <!-- Amount -->
     <div class="flex justify-between text-sm mb-4">
       <span class="font-semibold text-primary">
-        ₹{{ c.raised | number }}
+        ₹{{ c.raisedAmount | number }}
       </span>
       <span class="text-gray-500">
-        of ₹{{ c.goal | number }}
+        of ₹{{ c.goalAmount | number }}
       </span>
     </div>
 
