@@ -1,40 +1,83 @@
 <div class="md:min-h-[90vh] mt-10 md:mt-0 mb-10 md:mb-0 flex flex-col lg:flex-row">
 
   <!-- LEFT -->
-  <div class="hidden lg:flex w-1/2 bg-[#0B4F5C] text-white items-center justify-center">
-    <div class="text-center px-10 max-w-md">
+ <div class="hidden lg:flex w-1/2 text-white items-center justify-center
+            bg-teal-800 relative overflow-hidden">
 
-      <div class="mb-4 flex justify-center">
-        <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-lg">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart-icon lucide-heart"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/></svg>
-        </div>
+  <!-- soft top light -->
+  <div class="absolute inset-0 
+              bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.08),transparent_60%)]">
+  </div>
+
+  <!-- subtle depth -->
+  <div class="absolute inset-0 
+              bg-gradient-to-b from-transparent via-transparent to-black/20">
+  </div>
+
+  <div class="relative text-center px-12 max-w-md">
+
+    <!-- Icon -->
+    <div class="mb-6 flex justify-center">
+      <div class="w-14 h-14 rounded-full 
+                  bg-white/10 border border-white/15
+                  flex items-center justify-center">
+
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+          viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="opacity-90">
+          <path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/>
+        </svg>
+
+      </div>
+    </div>
+
+    <!-- Title -->
+    <h1 class="text-3xl font-medium leading-snug tracking-tight mb-4">
+      Every Life Deserves
+      <br />
+      <span class="text-white/90 italic font-normal">
+        a Fighting Chance
+      </span>
+    </h1>
+
+    <!-- Subtitle -->
+    <p class="text-white/70 text-sm mb-10 leading-relaxed">
+      Join thousands of compassionate donors helping patients get life-saving treatment.
+    </p>
+
+    <!-- Stats -->
+    <div class="flex justify-center items-center gap-8 text-sm">
+
+      <div class="text-center">
+        <p class="text-lg font-semibold">1,200+</p>
+        <p class="text-white/50 text-[11px] mt-1 uppercase tracking-wide">
+          Patients
+        </p>
       </div>
 
-      <h1 class="text-3xl font-bold mb-3 leading-snug">
-        Every Life Deserves a<br />Fighting Chance
-      </h1>
+      <div class="w-px h-6 bg-white/20"></div>
 
-      <p class="text-white/80 text-xs mb-6">
-        Join thousands of compassionate donors making a difference in patients' lives.
-      </p>
+      <div class="text-center">
+        <p class="text-lg font-semibold">$4.2M</p>
+        <p class="text-white/50 text-[11px] mt-1 uppercase tracking-wide">
+          Raised
+        </p>
+      </div>
 
-      <div class="flex justify-center gap-6 text-xs">
-        <div>
-          <p class="text-lg font-semibold">1,200+</p>
-          <p class="text-white/70">Patients</p>
-        </div>
-        <div>
-          <p class="text-lg font-semibold">$4.2M</p>
-          <p class="text-white/70">Raised</p>
-        </div>
-        <div>
-          <p class="text-lg font-semibold">98%</p>
-          <p class="text-white/70">Verified</p>
-        </div>
+      <div class="w-px h-6 bg-white/20"></div>
+
+      <div class="text-center">
+        <p class="text-lg font-semibold">98%</p>
+        <p class="text-white/50 text-[11px] mt-1 uppercase tracking-wide">
+          Verified
+        </p>
       </div>
 
     </div>
+
   </div>
+</div>
 
   <!-- RIGHT -->
   <div class="w-full lg:w-1/2 flex items-center justify-center bg-gray-50 px-4">
