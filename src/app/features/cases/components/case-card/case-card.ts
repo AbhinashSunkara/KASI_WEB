@@ -11,7 +11,8 @@ export class CaseCard {
   @Input() case: any;
 
   getProgress(): number {
-    return Math.min((this.case.raised / this.case.goal) * 100, 100);
+    console.log('Calculating progress for case:', this.case);
+    return Math.min((this.case.raisedAmount / this.case.goalAmount) * 100, 100);
   }
 
 }

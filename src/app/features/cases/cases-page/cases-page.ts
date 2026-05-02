@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CampaignListItemDto, CampaignQueryParamsDto } from '../../../models/Campgain';
+import { CampaignApiService } from '../../services/campaign-api.service';
+import { CampaignStatus } from '../../../models/Enums';
 
 @Component({
   selector: 'app-cases-page',
@@ -6,30 +9,40 @@ import { Component } from '@angular/core';
   templateUrl: './cases-page.html',
   styleUrl: './cases-page.css',
 })
-export class CasesPage {
+export class CasesPage implements OnInit {
 
-  cases = [
-    {
-      name: 'Aarav Sharma',
-      condition: 'Heart Surgery',
-      hospital: 'Apollo Hospital',
-      raised: 450000,
-      goal: 800000
-    },
-    {
-      name: 'Meera Reddy',
-      condition: 'Cancer Treatment',
-      hospital: 'KIMS Hospital',
-      raised: 620000,
-      goal: 900000
-    },
-    {
-      name: 'Rahul Verma',
-      condition: 'Kidney Transplant',
-      hospital: 'AIIMS',
-      raised: 300000,
-      goal: 700000
+  cases: any[] = [];
+  loading = false;
+  error = false;
+
+  constructor(private campaignApi: CampaignApiService) {}
+
+  async ngOnInit() {
+    await this.loadCases();
+  }
+
+  async loadCases() {
+    this.loading = true;
+    this.error = false;
+
+    try {
+      const query: CampaignQueryParamsDto = {
+        page: 1,
+        pageSize: 10,
+        status: CampaignStatus.Active
+      };
+
+      const res = await this.campaignApi.getAll(query);
+
+      const items = res?.data || res?.items || res || [];
+
+      this.cases = items;
+
+    } catch (err) {
+      console.error('Failed to load cases', err);
+      this.error = true;
+    } finally {
+      this.loading = false;
     }
-  ];
-
+  }
 }

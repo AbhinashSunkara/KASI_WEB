@@ -1,52 +1,77 @@
-<div class="bg-white rounded-xl shadow-xs border border-gray-200 hover:shadow-md transition overflow-hidden">
+<div class="bg-white rounded-3xl overflow-hidden
+            shadow-[0_10px_30px_rgba(0,0,0,0.05)]
+            hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)]
+            transition-all duration-300 hover:-translate-y-1 group">
 
   <!-- Image -->
-  <div class="h-40 bg-gray-200">
+  <div class="relative h-48 overflow-hidden">
+
     <img 
-      src="https://images.unsplash.com/photo-1579154204601-01588f351e67"
-      class="w-full h-full object-cover"
+      [src]="case.coverImageUrl || 'https://images.unsplash.com/photo-1579154204601-01588f351e67'"
+      class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
     />
+
+    <!-- Gradient overlay -->
+    <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent"></div>
+
+    <!-- Hospital tag -->
+    <span class="absolute bottom-3 left-3 text-xs bg-white/90 backdrop-blur px-3 py-1 rounded-full text-gray-700 font-medium shadow-sm">
+      {{ case.hospital }}
+    </span>
+
   </div>
 
   <!-- Content -->
-  <div class="p-6">
+  <div class="p-5">
 
-    <h3 class="text-lg font-semibold">
-      {{ case.name }}
+    <!-- Name -->
+    <h3 class="text-lg font-semibold text-gray-900 leading-snug">
+      {{ case.patientName }}
     </h3>
 
-    <p class="text-sm text-gray-500 mb-2">
-      {{ case.condition }}
-    </p>
-
-    <p class="text-sm text-gray-400 mb-4">
-      {{ case.hospital }}
+    <!-- Condition -->
+    <p class="text-sm text-gray-500 mt-1">
+      {{ case.slug }}
     </p>
 
     <!-- Progress -->
-    <div class="mb-2">
-      <div class="w-full bg-gray-200 h-2 rounded-full">
+    <div class="mt-4">
+
+      <div class="flex justify-between text-xs text-gray-400 mb-1">
+        <span>Raised</span>
+        <span>{{ getProgress() | number:'1.0-0' }}%</span>
+      </div>
+
+      <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
         <div 
-          class="bg-primary h-2 rounded-full"
+          class="h-2 bg-gradient-to-r from-primary to-primaryDark rounded-full transition-all duration-500"
           [style.width.%]="getProgress()"
         ></div>
       </div>
+
     </div>
 
     <!-- Amount -->
-    <div class="flex justify-between text-sm mb-4">
-      <span class="font-semibold text-primary">
-        ₹{{ case.raised | number }}
-      </span>
-      <span class="text-gray-500">
-        of ₹{{ case.goal | number }}
-      </span>
-    </div>
+    <div class="flex justify-between items-center mt-3">
 
-    <!-- CTA -->
-    <button class="w-full bg-primary hover:bg-primaryDark text-white py-2 rounded-lg">
-      Donate Now
-    </button>
+      <div>
+        <p class="text-sm font-semibold text-primary">
+          ₹{{ case.raisedAmount | number }}
+        </p>
+        <p class="text-xs text-gray-400">
+          of ₹{{ case.goalAmount | number }}
+        </p>
+      </div>
+
+      <!-- CTA -->
+      <button 
+        class="text-sm font-semibold text-primary
+               hover:text-primaryDark transition flex items-center gap-1"
+      >
+        Donate →
+      </button>
+
+    </div>
 
   </div>
 

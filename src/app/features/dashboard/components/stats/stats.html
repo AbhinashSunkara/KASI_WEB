@@ -1,0 +1,80 @@
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+
+  <div 
+    *ngFor="let s of stats"
+    class="relative bg-white rounded-2xl p-5 
+           border border-gray-100
+           shadow-[0_10px_30px_rgba(0,0,0,0.05)]
+           hover:shadow-[0_20px_45px_rgba(0,0,0,0.08)]
+           transition-all duration-300 group overflow-hidden"
+  >
+
+    <!-- Soft Gradient Glow -->
+    <div 
+      class="absolute -top-10 -right-10 w-24 h-24 rounded-full blur-2xl opacity-20"
+      [ngClass]="s.bg"
+    ></div>
+
+    <!-- Content -->
+    <div class="relative z-10">
+
+      <!-- Label -->
+      <p class="text-xs text-gray-500 mb-1 tracking-wide">
+        {{ s.label }}
+      </p>
+
+      <!-- Value -->
+      <h3 class="text-2xl font-bold text-gray-900 mb-2">
+        {{ s.value }}
+      </h3>
+
+      <!-- Trend -->
+      <div class="flex items-center gap-1 text-xs font-medium">
+
+        <span 
+          [ngClass]="s.trend === 'up' ? 'text-green-600' : 'text-red-500'"
+        >
+          {{ s.change }}
+        </span>
+
+        <span class="text-gray-400">
+          this month
+        </span>
+
+      </div>
+
+    </div>
+
+    <!-- Icon -->
+    <div 
+  class="absolute top-4 right-4 w-12 h-12 flex items-center justify-center rounded-2xl"
+  [ngClass]="s.bg"
+>
+
+  <!-- Up -->
+  <svg *ngIf="s.trend === 'up'" 
+       xmlns="http://www.w3.org/2000/svg"
+       class="w-5 h-5 text-green-500"
+       fill="none"
+       stroke="currentColor"
+       stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round"
+      d="M3 17l6-6 4 4 7-7" />
+  </svg>
+
+  <!-- Down -->
+  <svg *ngIf="s.trend === 'down'" 
+       xmlns="http://www.w3.org/2000/svg"
+       class="w-5 h-5 text-red-500"
+       fill="none"
+       stroke="currentColor"
+       stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round"
+      d="M3 7l6 6 4-4 7 7" />
+  </svg>
+
+</div>
+
+  </div>
+
+</div>

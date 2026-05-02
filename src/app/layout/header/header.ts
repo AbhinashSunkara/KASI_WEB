@@ -1,4 +1,5 @@
 import { Component, HostListener } from '@angular/core';
+import { RequestContextService } from '../../core/services/request.context';
 
 @Component({
   selector: 'app-header',
@@ -8,21 +9,39 @@ import { Component, HostListener } from '@angular/core';
 })
 export class Header {
 
-  isMenuOpen = false;
+  isMobileMenuOpen = false;
+  isProfileMenuOpen = false;
 
-  toggleMenu(event: Event) {
-    event.stopPropagation(); // prevent immediate close
-    this.isMenuOpen = !this.isMenuOpen;
+  constructor(public context: RequestContextService) {
+    console.log('User Role:', this.context.role);
+    console.log('Is Admin:', this.context.isAdmin);
+    console.log('IsLoggedIn:', this.context.isLoggedIn);
   }
 
-  closeMenu() {
-    this.isMenuOpen = false;
+  toggleMobileMenu(event: Event) {
+    event.stopPropagation();
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+    this.isProfileMenuOpen = false;
   }
 
-  // 👇 This closes menu when clicking ANYWHERE
+  toggleProfileMenu(event: Event) {
+    event.stopPropagation();
+    this.isProfileMenuOpen = !this.isProfileMenuOpen;
+    this.isMobileMenuOpen = false;
+  }
+
+  closeMenus() {
+    this.isMobileMenuOpen = false;
+    this.isProfileMenuOpen = false;
+  }
+
   @HostListener('document:click')
   onDocumentClick() {
-    this.isMenuOpen = false;
+    this.closeMenus();
   }
 
+  logout() {
+    localStorage.clear();
+    window.location.href = '/';
+  }
 }

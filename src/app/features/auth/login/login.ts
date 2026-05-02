@@ -5,6 +5,8 @@ import { OtpApiService } from '../../services/otp-api.service';
 import { TokenService } from '../../../core/services/token.service';
 import { LoginRequest } from '../../../models/LoginRequest';
 import { ToastrService } from 'ngx-toastr';
+import { setAccessToken } from '../../../core/services/auth.actions';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-login',
@@ -27,6 +29,8 @@ export class Login implements OnInit {
     private router: Router,
     private toastr: ToastrService,
     private tokenService: TokenService,
+    private store: Store
+    
   ) {}
 
   ngOnInit(): void {
@@ -74,9 +78,10 @@ export class Login implements OnInit {
       if (result?.accessToken) 
       {
           this.tokenService.setTokens(result.accessToken, result.refreshToken);
+            this.store.dispatch(setAccessToken({ token: result.accessToken }));
       }
       this.toastr.success('Login successful!');
-      this.router.navigate(['documentation/fullstack']);
+      this.router.navigate(['/']);
     } catch (err: any) {
       const msg = err?.error?.detail || 'Login failed. Check your credentials and CAPTCHA.';
       this.toastr.error(msg);

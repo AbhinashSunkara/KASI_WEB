@@ -79,6 +79,13 @@ export const difficultyMap = {
   },
 };
 
+export enum CampaignStatus {
+  Pending = 1,
+  Active = 2,
+  Completed = 3,
+  Cancelled = 4
+}
+
 
 export const categoryMap = {
   [CodingQuestionCategory.Array]: { label: 'Array' },
