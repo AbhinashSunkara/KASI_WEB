@@ -180,15 +180,45 @@ export class Register implements OnInit {
 
   try {
     await this.authApi.RegisterUser(registrationRequest);
-    this.toastr.success('Registration successful!');
-    this.router.navigate(['/login']);
+    this.toastr.success(
+      'Account created successfully! Please login with your credentials.',
+      'Success'
+    );
+
+    // small delay so user sees toast
+    setTimeout(() => {
+      this.router.navigate(['/auth/login']);
+    }, 1500);
     form.resetForm();
     this.resetStatesAfterSignup();
   } catch (error: any) {
-    const msg = error?.error?.message || 'Signup failed. Please try again.';
-    this.toastr.error(msg);
-    this.loadCaptcha();
-  } finally {
+
+  const msg = error?.error?.message || '';
+
+  if (msg.toLowerCase().includes('already')) {
+
+    this.toastr.warning(
+      'Account already exists. Please login with your credentials.',
+      'User Exists'
+    );
+
+    setTimeout(() => {
+      this.router.navigate(['/auth/login'], {
+        queryParams: { email: this.email }
+      });
+    }, 1500);
+
+  } else {
+
+    this.toastr.error(
+      msg || 'Signup failed. Please try again.',
+      'Error'
+    );
+
+  }
+
+  this.loadCaptcha();
+} finally {
     this.isSigningUp = false;  // <-- changed
   }
 }
