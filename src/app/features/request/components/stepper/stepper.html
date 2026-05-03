@@ -123,11 +123,12 @@
           <!-- Submit -->
           <div class="text-right">
             <button 
-              class="bg-green-600 hover:bg-green-700 text-white px-6 py-2.5 rounded-lg text-sm font-semibold"
-              (click)="submitAll()"
-            >
-              Submit Request
-            </button>
+                class="bg-green-600 hover:bg-green-700 text-white px-6 py-2.5 rounded-lg text-sm font-semibold disabled:bg-gray-400 disabled:cursor-not-allowed"
+                (click)="submitAll()"
+                [disabled]="loading"
+              >
+                {{ loading ? 'Submitting...' : 'Submit Request' }}
+              </button>
           </div>
 
         </div>
@@ -140,20 +141,20 @@
     <div class="flex items-center justify-between mt-6">
 
       <button 
-        (click)="prev()"
-        [disabled]="currentStep === 0"
-        class="px-4 py-2 border rounded-lg text-sm disabled:opacity-50"
-      >
-        Back
-      </button>
+  (click)="prev()"
+  [disabled]="currentStep === 0 || loading"
+  class="px-4 py-2 border rounded-lg text-sm disabled:opacity-50"
+>
+  Back
+</button>
 
-      <button 
-        (click)="next()"
-        [disabled]="!canProceed() || currentStep === steps.length - 1"
-        class="bg-primary text-white px-6 py-2.5 rounded-lg text-sm font-semibold disabled:bg-gray-400"
-      >
-        Next →
-      </button>
+<button 
+  (click)="next()"
+  [disabled]="!canProceed() || currentStep === steps.length - 1 || loading"
+  class="bg-primary text-white px-6 py-2.5 rounded-lg text-sm font-semibold disabled:bg-gray-400"
+>
+  Next →
+</button>
 
     </div>
 

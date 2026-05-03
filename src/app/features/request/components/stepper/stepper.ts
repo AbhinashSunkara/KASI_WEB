@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { CampaignApiService } from '../../../services/campaign-api.service';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-stepper',
@@ -19,7 +21,10 @@ export class Stepper {
 
   steps = ['Patient Info', 'Medical Info', 'Documents', 'Review'];
 
-  constructor(private campaignApi: CampaignApiService) {}
+  constructor(private campaignApi: CampaignApiService,
+    private toastr: ToastrService,
+  private router: Router
+  ) {}
 
   goToStep(index: number) {
     this.currentStep = index;
@@ -51,35 +56,46 @@ export class Stepper {
 
   async submitAll() {
 
-    if (!this.documents || this.documents.length === 0) {
-      this.showDocumentError = true;
-      return;
-    }
-
-    this.loading = true;
-
-    const payload = {
-      title: this.medicalData.condition,
-      story: this.medicalData.description,
-      goalAmount: this.medicalData.estimatedCost,
-
-      patient: this.patientData,
-      medical: this.medicalData,
-      documents: this.documents
-    };
-
-    try {
-      const res = await this.campaignApi.create(payload);
-      console.log('Campaign Created:', res);
-
-      alert('Campaign submitted successfully');
-    } catch (err) {
-      console.error(err);
-      alert('Failed to create campaign');
-    }
-
-    this.loading = false;
+  if (!this.documents || this.documents.length === 0) {
+    this.showDocumentError = true;
+    return;
   }
+
+  this.loading = true;
+
+  const payload = {
+    title: this.medicalData.condition,
+    story: this.medicalData.description,
+    goalAmount: this.medicalData.estimatedCost,
+
+    patient: this.patientData,
+    medical: this.medicalData,
+    documents: this.documents
+  };
+
+  try {
+    const res = await this.campaignApi.create(payload);
+
+    this.toastr.success(
+      'Request submitted successfully. Our team will verify it shortly.',
+      'Success'
+    );
+
+    setTimeout(() => {
+      this.router.navigate(['/']);
+    }, 1500);
+
+  } catch (err) {
+    console.error(err);
+
+    this.toastr.error(
+      'Failed to submit request. Please try again.',
+      'Error'
+    );
+  }
+
+  this.loading = false;
+}
 
   canProceed(): boolean {
     if (this.currentStep === 0) return !!this.patientData;
